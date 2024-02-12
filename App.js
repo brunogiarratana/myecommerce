@@ -1,19 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { useEffect, useState } from 'react'
+import Home from './src/Screens/Home';
+import colors from './src/utils/globals/colors';
+import { useFonts } from "expo-font"
+import { fontCollection } from './src/utils/globals/fuentes';
+import ItemsListCategory from './src/Screens/ItemsListCategory';
 
 export default function App() {
+  const [fontsLoaded] = useFonts(fontCollection)
+  const [categorySelected, setCategorySelected] = useState("")
+  const [productId, setProductId] = useState(0)
+  if (!fontsLoaded) return null
+
+  const selectedCategoryState = (category) => {
+    setCategorySelected(category)
+  }
+  const selectedProductId = (id) => {
+    setProductId(id)
+  }
+  const back = () =>{
+    setCategorySelected("")
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      {categorySelected ?
+        <ItemsListCategory
+          back={back}
+          selectedProductId={selectedProductId}
+          categorySelected={categorySelected} />
+        :
+        <Home selectedCategoryState={selectedCategoryState} />
+      }
+
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
   },
