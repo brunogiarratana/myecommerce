@@ -6,7 +6,8 @@ import ItemByCategory from '../Components/ItemByCategory'
 import colors from '../utils/globals/colors'
 import { AntDesign } from "@expo/vector-icons"
 
-const ItemsListCategory = ({ categorySelected, selectedProductId, back }) => {
+const ItemsListCategory = ({ route, navigation }) => {
+  const {categorySelected} = route.params
 
   const [productsFiltered, setProductsFiltered] = useState([])
 
@@ -17,15 +18,11 @@ const ItemsListCategory = ({ categorySelected, selectedProductId, back }) => {
 
   return (
     <>
-      <Header
-        title={categorySelected}
-        back={back}
-      />
-
+    
       <FlatList
         data={productsFiltered}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <ItemByCategory selectedProductId={selectedProductId} item={item} />}
+        renderItem={({ item }) => <ItemByCategory item={item} navigation={navigation} />}
       />
     </>
   )

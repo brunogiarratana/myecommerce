@@ -1,12 +1,11 @@
 import Header from '../Components/Header'
 import Categories from '../Components/Categories'
 
-const Home = ({selectedCategoryState}) => {
+const Home = ({navigation}) => {
     
   return (
     <>
-        <Header title="Home"/>
-        <Categories selectedCategoryState={selectedCategoryState}/>
+        <Categories navigation={navigation} />
     </>
   )
 }

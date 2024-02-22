@@ -3,9 +3,9 @@ import React from 'react'
 import colors from '../utils/globals/colors'
 import fuentes from '../utils/globals/fuentes'
 
-const ItemByCategory = ({item ,selectedProductId}) => {
+const ItemByCategory = ({item, navigation }) => {
   return (
-    <Pressable onPress={()=>selectedProductId(item.id)} style={styles.container}>
+    <Pressable onPress={()=>console.log("deberia ir a detalles")} style={styles.container}>
       <Text style={styles.text}>{item.id} {item.title}</Text>
       <Image style={styles.image} source={{uri:item.thumbnail}} resizeMode="cover"/>
     </Pressable>

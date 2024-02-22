@@ -1,40 +1,55 @@
-import { StyleSheet, View } from 'react-native';
-import { useEffect, useState } from 'react'
+import { StyleSheet } from 'react-native';
 import Home from './src/Screens/Home';
 import colors from './src/utils/globals/colors';
-import { useFonts } from "expo-font"
+import { useFonts } from "expo-font";
 import { fontCollection } from './src/utils/globals/fuentes';
 import ItemsListCategory from './src/Screens/ItemsListCategory';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from 'expo-status-bar';
+import Header from './src/Components/Header';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+
+
+const App = () => {
   const [fontsLoaded] = useFonts(fontCollection)
-  const [categorySelected, setCategorySelected] = useState("")
-  const [productId, setProductId] = useState(0)
+
   if (!fontsLoaded) return null
 
-  const selectedCategoryState = (category) => {
-    setCategorySelected(category)
-  }
-  const selectedProductId = (id) => {
-    setProductId(id)
-  }
-  const back = () =>{
-    setCategorySelected("")
-  }
+
+
+
   return (
     <>
-      {categorySelected ?
-        <ItemsListCategory
-          back={back}
-          selectedProductId={selectedProductId}
-          categorySelected={categorySelected} />
-        :
-        <Home selectedCategoryState={selectedCategoryState} />
-      }
+      <StatusBar backgroundColor='grey' />
 
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName='Home'
+          screenOptions={({ route }) => {
+            return {
+              header: () => {
+                return <Header title={route.name === "Home" ? "Categorias" :
+                                      route.name === "ItemsListCategory" ? route.params.categorySelected:
+                                      ""
+             } />
+              }
+            }
+          }}
+        >
+
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="ItemsListCategory" component={ItemsListCategory} />
+
+        </Stack.Navigator>
+
+      </NavigationContainer>
     </>
   );
 }
+export default App
 
 const styles = StyleSheet.create({
   container: {
