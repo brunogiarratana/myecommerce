@@ -4,6 +4,8 @@ import { useFonts } from "expo-font";
 import { fontCollection } from './src/utils/globals/fuentes';
 import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux'
+import { store } from './src/app/store'
+import MainNavigator from './src/navigation/MainNavigator';
 
 const App = () => {
   const [fontsLoaded] = useFonts(fontCollection)

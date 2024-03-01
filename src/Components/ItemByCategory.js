@@ -5,7 +5,7 @@ import fuentes from '../utils/globals/fuentes'
 
 const ItemByCategory = ({item, navigation }) => {
   return (
-    <Pressable onPress={()=>console.log("deberia ir a detalles")} style={styles.container}>
+    <Pressable onPress={()=>navigation.navigate("ItemDetail",{productId:item.id})} style={styles.container}>
       <Text style={styles.text}>{item.id} {item.title}</Text>
       <Image style={styles.image} source={{uri:item.thumbnail}} resizeMode="cover"/>
     </Pressable>

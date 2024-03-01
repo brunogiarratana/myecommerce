@@ -1,13 +1,17 @@
-import { View, Text, StyleSheet, Pressable } from "react-native"
+import { View , Text ,StyleSheet,Platform ,StatusBar, Pressable  } from "react-native"
 import colors from "../utils/globals/colors"
 import fuentes from "../utils/globals/fuentes"
 import { AntDesign } from '@expo/vector-icons';
 
-const Header = ({ title = "Ecommerce"}) => {
-   
-        return <View style={styles.container}>
-            <Text style={styles.text}>{title}</Text>
-        </View>
+const Header = ({title="Ecommerce",navigation}) => {
+
+    return  <View style={styles.container}>
+                {navigation.canGoBack() && 
+                <Pressable style={styles.goBack} onPress={()=>navigation.goBack()}>
+                    <AntDesign name="arrowleft" size={25} color="black"/>
+                </Pressable>}
+                <Text style={styles.text}>{title}</Text>
+            </View>
 }
 
 export default Header
@@ -16,11 +20,11 @@ const styles = StyleSheet.create({
    
     container: {
         backgroundColor: colors.primary,
-        height: 80,
-        width: "100%",
-        marginVertical: 20,
-        alignItems: "center",
- 
+        height:80,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        width:"100%",
+        justifyContent:"center",
+        alignItems:"center",
         position:"relative"
     },
     text: {
@@ -28,11 +32,11 @@ const styles = StyleSheet.create({
         fontFamily: fuentes.ProtestRevolution,
     },
 
-    text1: {
-        fontSize: 17,
-        textAlign: 'center',
-        color: "white",
-        marginHorizontal: 10
-    },
+    goBack:{
+        position:"absolute",
+        left:10,
+        bottom:15
+
+    }
 })
 
