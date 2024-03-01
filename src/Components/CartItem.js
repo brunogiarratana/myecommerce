@@ -4,6 +4,7 @@ import colors from '../utils/globals/colors'
 import fuentes from "../utils/globals/fuentes"
 import { useDispatch } from 'react-redux'
 import { deleteCartItem } from '../features/cart/cartSlice'
+import CounterCart from './CounterCart';
 
 const CartItem = ({item}) => {
     const dispatch = useDispatch()
@@ -12,7 +13,7 @@ const CartItem = ({item}) => {
             <View style={styles.textContainer}>
                 <Text style={styles.text}>{item.title}</Text>
                 <Text style={styles.text2}>{item.brand}</Text>
-                <Text style={styles.text2}>Cantidad: {item.quantity}</Text>
+                <CounterCart item={item} />
                 <Text style={styles.text2}>Precio: ${item.price} </Text>
             </View>
             <Pressable onPress={()=> dispatch(deleteCartItem(item.id))}>
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
         flexDirection:"row",
         justifyContent:"space-between",
-        height:100,
+
         alignItems:"center"
     },
     textContainer:{

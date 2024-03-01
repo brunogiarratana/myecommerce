@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import colors from '../utils/globals/colors'
 import { useDispatch } from 'react-redux'
 import { addCartItem } from '../features/cart/cartSlice'
+import Counter from '../Components/Counter'
 
 const ItemDetail = ({ route }) => {
   const dispatch = useDispatch()
@@ -30,9 +31,10 @@ const ItemDetail = ({ route }) => {
         <View style={styles.containerPrice}>
           <Text style={styles.price}>$ {product.price}</Text>
           
-            <Pressable style={styles.buyNow} onPress={() => dispatch(addCartItem(product))}>
-              <Text style={styles.buyNowText}>Carrito</Text>
-            </Pressable>
+          <Counter 
+            initialValue={1}
+            product={product} 
+            textButton="Carrito" />
         </View>
       </View>
     </View>
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
 
   image: {
     width: "100%",
-    height: 300
+    height: 200
   },
   containerText: {
     gap: 25,

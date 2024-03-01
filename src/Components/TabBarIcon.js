@@ -5,7 +5,7 @@ import colors from '../utils/globals/colors'
 const TabBarIcon = ({title,nameIcon,focused}) => {
   return (
     <View style={styles.container}>
-      <Entypo name={nameIcon} size={25} color={focused ? colors.lightGray:colors.green1}/>  
+      <Entypo name={nameIcon} size={25} color={focused ? "black":"black"}/>  
       <Text style={[styles.text,!focused && styles.textFocused]} >{title}</Text>
     </View>
   )
@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     text:{
-        color:colors.lightGray,
+        color:"black",
         textAlign:"center",
         fontSize:15
     },
     textFocused:{
-        color: colors.green1
+        color: "black"
     }
 
 })

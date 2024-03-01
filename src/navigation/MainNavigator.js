@@ -49,7 +49,7 @@ export default MainNavigator
 
 const styles = StyleSheet.create({
     tabBar:{
-        backgroundColor:colors.green3,
+        backgroundColor:colors.primary,
         height:80,
         position:"absolute",
         left:20,
