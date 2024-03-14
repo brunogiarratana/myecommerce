@@ -6,10 +6,14 @@ import CartStack from './CartStack'
 
 import colors from '../utils/globals/colors';
 import TabBarIcon from '../Components/TabBarIcon';
+import ProfileStack from './ProfileStack';
+import { useDispatch } from 'react-redux';
+import { useGetImageQuery } from '../app/services/profile';
 
 const Tab = createBottomTabNavigator();
 
 const MainNavigator = () => {
+   
   return (
         <NavigationContainer>
            <Tab.Navigator
@@ -36,6 +40,16 @@ const MainNavigator = () => {
                     options={{
                         tabBarIcon: ({focused}) => 
                         <TabBarIcon title="Carrito" nameIcon="shopping-cart" focused={focused}/>
+                    }}
+
+                />
+
+                <Tab.Screen 
+                    name='ProfileStack' 
+                    component={ProfileStack}
+                    options={{
+                        tabBarIcon: ({focused}) => 
+                        <TabBarIcon title="Perfil" nameIcon="user" focused={focused}/>
                     }}
 
                 />
