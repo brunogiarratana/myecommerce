@@ -1,11 +1,28 @@
 import { StyleSheet, Text, View,FlatList,Pressable } from 'react-native'
 import CartItem from '../Components/CartItem'
 import fuentes from "../utils/globals/fuentes"
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch} from 'react-redux'
+import { usePostOrderMutation } from '../app/services/orders'
+import { deleteCart } from '../features/cart/cartSlice'
+const Cart = ({navigation}) => {
 
-const Cart = () => {
-
+    const dispatch = useDispatch()
     const cart = useSelector((state)=> state.cart)
+    const localId = useSelector((state)=> state.auth.localId)
+    const [triggerAddOrder] = usePostOrderMutation()
+
+    const handlerAddOrder = async () => {
+        const createdAt = new Date().toLocaleString()
+        const order = {
+            createdAt,
+            ...cart
+        }
+         await triggerAddOrder({localId,order})
+         dispatch(deleteCart())
+         navigation.navigate("OrdersStack")
+
+
+    }
 
   return (
     <View style={styles.container}>
@@ -15,7 +32,7 @@ const Cart = () => {
         renderItem={({item})=> <CartItem item={item}/>}
         />
         <View style={styles.confirmContainer}>
-            <Pressable>
+            <Pressable onPress={handlerAddOrder}>
                 <Text style={styles.confirmText}>Confirmar</Text>
             </Pressable>
             <Text style={styles.confirmText}>Total: $ {cart.total}</Text>
@@ -23,7 +40,6 @@ const Cart = () => {
     </View>
   )
 }
-
 export default Cart
 
 const styles = StyleSheet.create({
@@ -40,7 +56,7 @@ const styles = StyleSheet.create({
     },
     confirmText:{
         fontFamily:fuentes.ProtestRevolution,
-        fontSize:18,
-        color:"white"
+        fontSize:24,
+        color:"black"
     }
 })

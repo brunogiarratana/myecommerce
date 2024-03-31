@@ -6,14 +6,19 @@ import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux'
 import { store } from './src/app/store'
 import MainNavigator from './src/navigation/MainNavigator';
+import { init } from './src/utils/db';
+
+(async()=>{
+  const t= await init()
+  console.log(t)
+})()
+
+init()
 
 const App = () => {
   const [fontsLoaded] = useFonts(fontCollection)
 
   if (!fontsLoaded) return null
-
-
-
 
   return (
     <>
